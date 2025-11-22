@@ -376,7 +376,7 @@ _return.CreateWindow = function(name_window: string)
 				corner1.CornerRadius = UDim.new(0, 5)
 				--
 				uprv_scrolling_frame.AnchorPoint = Vector2.new(1, 1)
-				uprv_scrolling_frame.Size = UDim2.new(0.15, 0, 0.35, 0)
+				uprv_scrolling_frame.Size = UDim2.new(0, 0, 0, 0)
 				uprv_scrolling_frame.Position = UDim2.new(1, 0, 1, 0)
 				uprv_scrolling_frame.BorderSizePixel = 0
 				uprv_scrolling_frame.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
@@ -448,6 +448,16 @@ _return.CreateWindow = function(name_window: string)
 		end
 		return _2return
 	end
+	local Gui_Settings = _1return.Section("Guis Settings")
+	Gui_Settings.ClickButton("r", "Close Gui", function()
+		active = false
+		gui:Destroy()
+	end)
+	Gui_Settings.Text("m", "Basic Things")
+	Gui_Settings.Keybind("m", "Tp To Mouse", Enum.KeyCode.B, function()
+		local mouse = game.Players.LocalPlayer:GetMouse()
+		game.Players.LocalPlayer.Character:MoveTo(mouse.Hit.Position)
+	end)
 	return _1return
 end
 
