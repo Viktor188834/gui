@@ -7,6 +7,8 @@ plr.CharacterAdded:Connect(function(newchar)
 	char = newchar
 end)
 
+local active = true
+
 local firing = {
 	["Close All Sections"] = Instance.new("BindableEvent", game.ReplicatedStorage),
 }
@@ -77,7 +79,7 @@ _return.CreateWindow = function(name_window: string)
 	---------------------------
 	--FUNCTIONS
 	---------------------------
-	
+
 	-- adding section
 	_1return.Section = function(name_section: string)
 		local _2return = {}
@@ -282,7 +284,6 @@ _return.CreateWindow = function(name_window: string)
 		end
 		_2return.TextBox = function(enum, name: string, _function)
 			if type(enum) ~= "nil" then
-				local on = false
 				local button = Instance.new("TextBox")
 				local corner1 = Instance.new("UICorner", button)
 				--
@@ -312,7 +313,6 @@ _return.CreateWindow = function(name_window: string)
 		end
 		_2return.Keybind = function(enum, name: string, StarterKeyCode: Enum.KeyCode, _function)
 			if type(enum) ~= "nil" then
-				local on = false
 				local button = Instance.new("TextButton")
 				local corner1 = Instance.new("UICorner", button)
 				--
@@ -341,10 +341,105 @@ _return.CreateWindow = function(name_window: string)
 				end
 				game:GetService("UserInputService").InputBegan:Connect(function(i, g)
 					if g then return end
-					if i.KeyCode == StarterKeyCode then
+					if i.KeyCode == StarterKeyCode and active then
 						_function()
 					end
 				end)
+				button.MouseButton1Click:Connect(_active)
+				button.TouchTap:Connect(_active)
+				return button
+			end
+		end
+		_2return.PlayerSelect = function(enum, name: string, _function)
+			if type(enum) ~= "nil" then
+				local button = Instance.new("TextButton")
+				local corner1 = Instance.new("UICorner", button)
+				local uprv_scrolling_frame = Instance.new("ScrollingFrame", gui)
+				local ui_grid_2 = Instance.new("UIGridLayout", uprv_scrolling_frame)
+				local corner2 = Instance.new("UICorner", uprv_scrolling_frame)
+				local open = false
+				--
+				InFrame(button, enum)
+				--
+				button.Name = name;
+				button.BackgroundColor3 = Color3.fromRGB(65, 65, 65);
+				button.BorderSizePixel = 0;
+				button.TextColor3 = Color3.fromRGB(255, 255, 255);
+				button.TextStrokeColor3 = Color3.fromRGB(0, 0, 0);
+				button.TextStrokeTransparency = 0;
+				button.RichText = true;
+				button.TextWrapped = true;
+				button.TextScaled = true;
+				button.Font = Enum.Font.RobotoMono;
+				button.Text = name
+				--
+				corner1.CornerRadius = UDim.new(0, 5)
+				--
+				uprv_scrolling_frame.AnchorPoint = Vector2.new(1, 1)
+				uprv_scrolling_frame.Size = UDim2.new(0.15, 0, 0.35, 0)
+				uprv_scrolling_frame.Position = UDim2.new(1, 0, 1, 0)
+				uprv_scrolling_frame.BorderSizePixel = 0
+				uprv_scrolling_frame.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+				uprv_scrolling_frame.ScrollBarImageTransparency = 1
+				--
+				ui_grid_2.CellSize = UDim2.new(0.85, 0, 0.15, 0)
+				ui_grid_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
+				ui_grid_2.VerticalAlignment = Enum.VerticalAlignment.Center
+				--
+				corner2.CornerRadius = UDim.new(0.05, 0)
+				--
+				local function _active()
+					open = not open
+					if open then
+						game:GetService("TweenService"):Create(uprv_scrolling_frame, TweenInfo.new(1, Enum.EasingStyle.Linear), {
+							Size = UDim2.new(0.15, 0, 0.35, 0)
+						}):Play()
+						for i,v in uprv_scrolling_frame:GetChildren() do
+							if not v:IsA("UIGridLayout") then
+								v:Destroy()
+							end
+						end
+						for i,player in game.Players:GetPlayers() do
+							local prompt = Instance.new("TextButton", uprv_scrolling_frame)
+							local corner3 = Instance.new("UICorner", prompt)
+							--
+							prompt.Name = player.Name
+							prompt.Text = player.DisplayName.."("..player.Name..")"
+							prompt.BackgroundColor3 = Color3.fromRGB(159, 159, 159);
+							prompt.BorderSizePixel = 0;
+							prompt.TextColor3 = Color3.fromRGB(255, 255, 255);
+							prompt.TextStrokeColor3 = Color3.fromRGB(0, 0, 0);
+							prompt.TextStrokeTransparency = 0;
+							prompt.RichText = true;
+							prompt.TextWrapped = true;
+							prompt.LineHeight = 3
+							prompt.TextScaled = true;
+							prompt.Font = Enum.Font.RobotoMono;
+							--
+							corner3.CornerRadius = UDim.new(9999, 0)
+							--
+							local function OnActive_()
+								for i,v in uprv_scrolling_frame:GetChildren() do
+									if not v:IsA("UIGridLayout") then
+										v:Destroy()
+									end
+								end
+								game:GetService("TweenService"):Create(uprv_scrolling_frame, TweenInfo.new(0.3, Enum.EasingStyle.Linear), {
+									Size = UDim2.new(0, 0, 0, 0)
+								}):Play()
+							end
+							prompt.MouseButton1Click:Connect(OnActive_)
+							prompt.TouchTap:Connect(OnActive_)
+						end
+						task.delay(1, function()
+							uprv_scrolling_frame.CanvasSize = UDim2.new(0, 0, 0, ui_grid_2.AbsoluteContentSize.Y)
+						end)
+					else
+						game:GetService("TweenService"):Create(uprv_scrolling_frame, TweenInfo.new(0.3, Enum.EasingStyle.Linear), {
+							Size = UDim2.new(0, 0, 0, 0)
+						}):Play()
+					end
+				end
 				button.MouseButton1Click:Connect(_active)
 				button.TouchTap:Connect(_active)
 				return button
