@@ -424,6 +424,7 @@ _return.CreateWindow = function(name_window: string)
 										v:Destroy()
 									end
 								end
+								open = false
 								game:GetService("TweenService"):Create(uprv_scrolling_frame, TweenInfo.new(0.3, Enum.EasingStyle.Linear), {
 									Size = UDim2.new(0, 0, 0, 0)
 								}):Play()
