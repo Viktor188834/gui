@@ -428,6 +428,7 @@ _return.CreateWindow = function(name_window: string)
 								game:GetService("TweenService"):Create(uprv_scrolling_frame, TweenInfo.new(0.3, Enum.EasingStyle.Linear), {
 									Size = UDim2.new(0, 0, 0, 0)
 								}):Play()
+								_function(player)
 							end
 							prompt.MouseButton1Click:Connect(OnActive_)
 							prompt.TouchTap:Connect(OnActive_)
