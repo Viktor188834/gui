@@ -382,7 +382,7 @@ _return.CreateWindow = function(name_window: string)
 				uprv_scrolling_frame.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
 				uprv_scrolling_frame.ScrollBarImageTransparency = 1
 				--
-				ui_grid_2.CellSize = UDim2.new(0.85, 0, 0.15, 0)
+				ui_grid_2.CellSize = UDim2.new(0.85, 0, 0, 30)
 				ui_grid_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
 				ui_grid_2.VerticalAlignment = Enum.VerticalAlignment.Center
 				--
