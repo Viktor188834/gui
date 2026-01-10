@@ -268,13 +268,13 @@ _return.CreateWindow = function(name_window: string)
 							Position = UDim2.new(0, (button.AbsoluteSize.X-imaging_.AbsoluteSize.X), 0, 0)}):Play()
 						game:GetService("TweenService"):Create(button, TweenInfo.new(0.15, Enum.EasingStyle.Linear), {
 							BackgroundColor3 = Color3.fromRGB(48, 239, 38)}):Play()
-						_function_()
+						_function_(true)
 					else
 						game:GetService("TweenService"):Create(imaging_, TweenInfo.new(0.2, Enum.EasingStyle.Linear), {
 							Position = UDim2.new(0, 0, 0, 0)}):Play()
 						game:GetService("TweenService"):Create(button, TweenInfo.new(0.15, Enum.EasingStyle.Linear), {
 							BackgroundColor3 = Color3.fromRGB(115, 0, 0)}):Play()
-						_function_()
+						_function_(false)
 					end
 				end
 				button.MouseButton1Click:Connect(_function)
