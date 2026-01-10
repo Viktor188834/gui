@@ -219,7 +219,7 @@ _return.CreateWindow = function(name_window: string)
 				return button
 			end
 		end
-		_2return.Slide = function(enum, name: string, _function_on_, _function_of_)
+		_2return.Slide = function(enum, name: string, _function_)
 			if type(enum) ~= "nil" then
 				local on = false
 				local button = Instance.new("TextButton")
